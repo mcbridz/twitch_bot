@@ -1,0 +1,27 @@
+{
+  "name": "twitch_bot",
+  "version": "0.0.1",
+  "description": "Development repo for custome twitch bot.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcbridz/twitch_bot.git"
+  },
+  "keywords": [
+    "twitch",
+    "twitchbot",
+    "zaknefarious"
+  ],
+  "author": "Zachary McBride",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcbridz/twitch_bot/issues"
+  },
+  "homepage": "https://github.com/mcbridz/twitch_bot#readme",
+  "dependencies": {
+    "tmi.js": "^1.8.5"
+  }
+}
