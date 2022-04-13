@@ -1,27 +1,11 @@
-const tmi = require('tmi.js')
-const oAuth = process.env.oAuth || require('./secrets').twitch_Oauth
+const express = require('express')
+const DB_NAME = 'Cached_Data'
+const port = process.env.PORT || 8000
 
-const client = new tmi.Client({
-    connection: {
-        secure: true,
-        reconnect: true
-    },
-    identity: {
-        username: 'zaknefarious_bot',
-        password: oAuth
-    },
-    channels: ['zaknefarious']
+var app = require('./back_end/backbone')({
+    dbname: DB_NAME
 })
 
-client.connect()
-    .then(() => {
-    console.log('bot connected')
-})
-
-client.on('message', (channel, tags, message, self) => {
-    console.log(`${tags['display-name']}: ${message}`)
-    if (self) return
-    if (message.toLowerCase() === `!hello`) {
-        client.say(channel, `@${tags.username}, hello, world!`)
-    }
+app.listen(port, () => {
+    console.log('server listening on port: ' + port + '...')
 })

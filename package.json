@@ -1,10 +1,14 @@
 {
   "name": "twitch_bot",
   "version": "0.0.1",
-  "description": "Development repo for custome twitch bot.",
-  "main": "index.js",
+  "description": "Development repo for custom twitch bot.",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server",
+    "mongo": "mongod --dbpath=./data",
+    "front-end": "cd client && npm react-scripts start",
+    "heroku-postbuild": "cd client && npm i && npm run build"
   },
   "repository": {
     "type": "git",
@@ -22,6 +26,17 @@
   },
   "homepage": "https://github.com/mcbridz/twitch_bot#readme",
   "dependencies": {
-    "tmi.js": "^1.8.5"
+    "express": "^4.17.3",
+    "fetch": "^1.1.0",
+    "mongod": "^2.0.0",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.2.10",
+    "morgan": "^1.10.0",
+    "node-fetch": "^3.2.3",
+    "tmi.js": "^1.8.5",
+    "xml-js": "^1.6.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
