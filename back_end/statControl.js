@@ -10,7 +10,7 @@ router.get("/create", async function (req, res) {
     res.status(201).send("Stat instance created")
 })
 router.get("/initi", (req, res) => {
-    Stats.find({ init: false }, async function (err, dbStats) {
+    Stats.find({ initiated: false }, async function (err, dbStats) {
         // console.log(dbStats[0].initi)
         if (err) {
             console.log('An error has occurred in init back-end')
@@ -22,7 +22,7 @@ router.get("/initi", (req, res) => {
     })
 })
 router.get("/monthReset", function (req, res) {
-    Stats.find({ init: true }, async function (err, dbStats) {
+    Stats.find({ initiated: true }, async function (err, dbStats) {
         if (err) {
             console.log('An error has occurred in monthReset back-end')
         }
@@ -30,7 +30,7 @@ router.get("/monthReset", function (req, res) {
     })
 })
 router.get("/dayReset", (req, res) => {
-    Stats.find({ init: true }, async function (err, dbStats) {
+    Stats.find({ initiated: true }, async function (err, dbStats) {
         if (err) {
             console.log('An error has occurred in dayReset back-end')
         }
@@ -38,23 +38,47 @@ router.get("/dayReset", (req, res) => {
     })
 })
 router.get("/gen", (req, res) => {
-
-})
-router.get("/totem", (req, res) => {
-
-})
-router.get("/save", (req, res) => {
-
-})
-router.get("/escape", (req, res) => {
-
-})
-router.get("/kill", (req, res) => {
-    Stats.find({ init: true }, async function (err, dbStats) {
+    Stats.find({ initiated: true }, async function (err, dbStats) {
         if (err) {
             console.log('An error has occurred in kill back-end')
         }
-        await dbStats[0].upKills()
+        let num = !req.query.numberOf ? 1 : req.query.numberOf
+        await dbStats[0].upGens(num)
+    })
+})
+router.get("/totem", (req, res) => {
+    Stats.find({ initiated: true }, async function (err, dbStats) {
+        if (err) {
+            console.log('An error has occurred in kill back-end')
+        }
+        let num = !req.query.numberOf ? 1 : req.query.numberOf
+        await dbStats[0].upTotems(num)
+    })
+})
+router.get("/save", (req, res) => {
+    Stats.find({ initiated: true }, async function (err, dbStats) {
+        if (err) {
+            console.log('An error has occurred in kill back-end')
+        }
+        let num = !req.query.numberOf ? 1 : req.query.numberOf
+        await dbStats[0].upSaves(num)
+    })
+})
+router.get("/escape", (req, res) => {
+    Stats.find({ initiated: true }, async function (err, dbStats) {
+        if (err) {
+            console.log('An error has occurred in kill back-end')
+        }
+        await dbStats[0].upEscapes()
+    })
+})
+router.get("/kill", (req, res) => {
+    Stats.find({ initiated: true }, async function (err, dbStats) {
+        if (err) {
+            console.log('An error has occurred in kill back-end')
+        }
+        let num = !req.query.numberOf ? 1 : req.query.numberOf
+        await dbStats[0].upKills(num)
     })
 })
 

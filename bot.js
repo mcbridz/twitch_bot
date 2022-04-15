@@ -43,20 +43,26 @@ client.connect()
     }).catch((err) => {
         console.log('Error connecting')
         console.log(err)
-})
+    })
 
 client.on('message', (channel, tags, message, self) => {
     console.log(`${tags['display-name']}: ${message}`)
     if (self) return
-    // if (message.toLowerCase() === `!hello`) {
-    //     client.say(channel, `@${tags.username}, hello, world!`)    
-    // }
-    const [raw, command, argument] = message.match(regexCmd)
-    if (tags.username === 'zaknefarious') {
+    if (message.toLowerCase() === `!hello`) {
+        client.say(channel, `@${tags.username}, hello, world!`)
+    }
+    var raw
+    var command
+    var argument
+    !message.match(regexCmd) ? message_matches = [] : [raw, command, argument] = message.match(regexCmd)
+    console.log(raw, command, argument)
+    if (tags.username === 'zaknefarious' && message.toLowerCase() !== '!hello' && command in addresses) {
         // client.say(channel, `Command ${command} received`)
         let new_url = addresses[`${command}`]
         console.log(new_url)
-        fetch.fetchUrl(new_url, res => {
+        fetch.fetchUrl(new_url + (!argument ? '' : '?' + new URLSearchParams({
+            numberOf: argument
+        })), res => {
             console.log(res)
         })
     }

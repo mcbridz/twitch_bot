@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/mcbridz/twitch_bot#readme",
   "dependencies": {
+    "ejs": "^3.1.6",
     "express": "^4.17.3",
     "fetch": "^1.1.0",
     "mongod": "^2.0.0",

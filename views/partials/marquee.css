@@ -1,0 +1,48 @@
+body {
+  font-family: system-ui;
+  background: black;
+  color: white;
+  text-align: right;
+}
+
+#scrollerSetup > div {
+  -webkit-position: absolute;
+  position:absolute;
+  right:-20vw;
+}
+
+.BG_content_far {
+  animation: background-shift 10s linear infinite forwards;
+  overflow:hidden;
+  z-index:1;
+  color:lightgray;
+  width: 1920px !important;
+  white-space: nowrap;
+}
+.BG_content_close {
+  animation: background-shift 12s linear infinite forwards;
+  overflow:hidden;
+  z-index:5;
+}
+
+
+@keyframes background-shift {
+   0% {
+     transform: translateX(140vw);
+  }
+  100% {
+    transform: translateX(-140vw);
+  }
+}
+
+.spacer_short {
+  margin-right:5em;
+}
+
+.spacer_med {
+  margin-right:23em;
+}
+
+.spacer_long {
+  margin-right:60em;
+}

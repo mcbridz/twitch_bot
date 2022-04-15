@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marquee</title>
+    <%- include("marquee-style.ejs") %>
+</head>
+
+<body>
+    <div id="scrollerSetup">
+        <div class="BG_content_far">
+            <br />
+            <span>Total Hours Played: <%= hours %></span>
+            <span class="spacer_short"></span>
+            <span>Gens this month: <%= gensMonth %></span>
+            <span class="spacer_short"></span>
+            <span>Totems this month: <%= totemsMonth %></span>
+            <span class="spacer_short"></span>
+            <span>Saves this month: <%= savesMonth %></span>
+            <span class="spacer_short"></span>
+            <span>Escapes this month: <%= escapesMonth %></span>
+            <span class="spacer_short"></span>
+            <span>Kills this month: <%= killsMonth %></span>
+            <span class="spacer_short"></span>
+            <span>Gens today: <%= gensDay %></span>
+            <span class="spacer_short"></span>
+            <span>Totems today: <%= totemsDay %></span>
+            <span class="spacer_short"></span>
+            <span>Saves today: <%= savesDay %></span>
+            <span class="spacer_short"></span>
+            <span>Escapes today: <%= escapesDay %></span>
+            <span class="spacer_short"></span>
+            <span>Kills today: <%= killsDay %></span>
+            <br />
+        </div>
+        <div class="BG_content_far">
+            <br />
+            <span>Total Hours Played: <%= hours %></span>
+            <span class="spacer_short"></span>
+            <span>Gens this month: <%= gensMonth %></span>
+            <span class="spacer_short"></span>
+            <span>Totems this month: <%= totemsMonth %></span>
+            <span class="spacer_short"></span>
+            <span>Saves this month: <%= savesMonth %></span>
+            <span class="spacer_short"></span>
+            <span>Escapes this month: <%= escapesMonth %></span>
+            <span class="spacer_short"></span>
+            <span>Kills this month: <%= killsMonth %></span>
+            <span class="spacer_short"></span>
+            <span>Gens today: <%= gensDay %></span>
+            <span class="spacer_short"></span>
+            <span>Totems today: <%= totemsDay %></span>
+            <span class="spacer_short"></span>
+            <span>Saves today: <%= savesDay %></span>
+            <span class="spacer_short"></span>
+            <span>Escapes today: <%= escapesDay %></span>
+            <span class="spacer_short"></span>
+            <span>Kills today: <%= killsDay %></span>
+            <br />
+        </div>
+    </div>
+</body>
+<script>
+    setTimeout(function() {
+        window.location.reload(1)
+    }, 30000)
+</script>
+</html>

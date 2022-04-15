@@ -81,32 +81,37 @@ statSchema.methods.dayReset = async function () {
     this.killsDay = 0
     return this.save()
 }
-statSchema.methods.upGens = async function () {
-    this.gensDay += 1
-    this.gensMonth += 1
+statSchema.methods.upGens = async function (num) {
+    let numR = !num ? 1 : num
+    this.gensDay += numR
+    this.gensMonth += numR
     return this.save()
 }
-statSchema.methods.upTotems = async function () {
-    this.totemsDay += 1    
-    this.totemsMonth += 1
+statSchema.methods.upTotems = async function (num) {
+    this.totemsDay += num    
+    this.totemsMonth += num
     return this.save()
 }
-statSchema.methods.upSaves = async function () {
-    this.savesDay += 1
-    this.totemsMonth += 1
+statSchema.methods.upSaves = async function (num) {
+    let numR = !num ? 1 : num
+    this.savesDay += numR
+    this.savesMonth += numR
     return this.save()
 }
-statSchema.methods.upEscapes = async function () {
-    this.escapesDay += 1
-    this.escapesMonth += 1
+statSchema.methods.upEscapes = async function (num) {
+    let numR = !num ? 1 : num
+    this.escapesDay += numR
+    this.escapesMonth += numR
     return this.save()
 }
-statSchema.methods.upKills = async function () {
-    this.killsDay += 1
-    this.killsMonth += 1
+statSchema.methods.upKills = async function (num) {
+    let numR = !num ? 1 : num
+    this.killsDay += numR
+    this.killsMonth += numR
     return this.save()
 }
-statSchema.methods.initi = async function () {
+statSchema.methods.initi = async function (num) {
+    let numR = !num ? 1 : num
     this.initiated = true
     return this.save()
 }
@@ -115,7 +120,7 @@ statSchema.methods.initi = async function () {
 
 
 statSchema.statics.retrieve = function () {
-    return this.find({ init: true })
+    return this.find({ initiated: true })
 }
 statSchema.statics.create = async function () {
     const stats = new this()
