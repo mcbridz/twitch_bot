@@ -21,7 +21,11 @@ app.get("/", (req, res) => {
     res.status(200).send("Hello, World!")
 })
 
-
+if (process.env.PORT) {
+    app.use(express.static(path.join(__dirname, "..", "static")));
+  } else {
+    app.use(express.static("static"));
+  }
 
 const getStats = require("./stats")
 app.use("/", getStats)
@@ -29,7 +33,6 @@ const statControl = require("./statControl")
 app.use("/", statControl)
 const componentControl = require('./componentControl')
 app.use("/", componentControl)
-app.use(express.static(path.join(__dirname, 'static')))
 
 
 module.exports = function (deps) {

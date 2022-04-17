@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smoke Background</title>
+    <%- include("smokeBackground-style.ejs") %>
+        <!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+            integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
+</head>
+
+<body>
+    <section class="ag-smoke-block">
+        <div class="ag-smoke-1"><img src="<%= !process.env.port ? 'http://localhost:8000/smoke-1.png' : window.location.hostname + '/smoke-1.png'%>">
+        </div>
+        <div class="ag-smoke-1 ag-smoke__delay-1"><img src="<%= !process.env.port ? 'http://localhost:8000/smoke-1.png' : window.location.hostname + '/smoke-1.png'%>">
+        </div>
+        <div class="ag-smoke-1 ag-smoke__delay-2"><img src="<%= !process.env.port ? 'http://localhost:8000/smoke-1.png' : window.location.hostname + '/smoke-1.png'%>">
+        </div>
+        <div class="ag-smoke-2"><img src="<%= !process.env.port ? 'http://localhost:8000/smoke-2.png' : window.location.hostname + '/smoke-2.png'%>">
+        </div>
+        <div class="ag-smoke-2 ag-smoke__delay-1"><img src="<%= !process.env.port ? 'http://localhost:8000/smoke-2.png' : window.location.hostname + '/smoke-2.png'%>">
+        </div>
+        <div class="ag-smoke-2 ag-smoke__delay-2"><img src="<%= !process.env.port ? 'http://localhost:8000/smoke-2.png' : window.location.hostname + '/smoke-2.png'%>">
+        </div>
+        <div class="ag-smoke-3"><img src="<%= !process.env.port ? 'http://localhost:8000/smoke-3.png' : window.location.hostname + '/smoke-3.png'%>">
+        </div>
+        <div class="ag-smoke-3 ag-smoke__delay-1"><img src="<%= !process.env.port ? 'http://localhost:8000/smoke-3.png' : window.location.hostname + '/smoke-3.png'%>">
+        </div>
+        <div class="ag-smoke-3 ag-smoke__delay-2"><img src="<%= !process.env.port ? 'http://localhost:8000/smoke-3.png' : window.location.hostname + '/smoke-3.png'%>">
+        </div>
+        <div class="ag-smoke-4"><img src="<%= !process.env.port ? 'http://localhost:8000/smoke-4.png' : window.location.hostname + '/smoke-4.png'%>">
+        </div>
+        <div class="ag-smoke-4 ag-smoke__delay-1"><img src="<%= !process.env.port ? 'http://localhost:8000/smoke-4.png' : window.location.hostname + '/smoke-4.png'%>">
+        </div>
+        <div class="ag-smoke-4 ag-smoke__delay-2"><img src="<%= !process.env.port ? 'http://localhost:8000/smoke-4.png' : window.location.hostname + '/smoke-4.png'%>">
+        </div>
+        <div class="ag-format-container">
+        </div>
+    </section>
+</body>
+<!-- <script>
+    (function ($) {
+        $(function () {
+
+
+
+        });
+    })(jQuery);
+</script> -->
+
+</html>

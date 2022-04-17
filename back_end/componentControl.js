@@ -27,4 +27,8 @@ router.get("/marquee", async function (req, res) {
     })
 })
 
+router.get("/smokeBackground", function (req, res) {
+    res.render('../views/partials/smokeBackground')
+})
+
 module.exports = router

@@ -42,7 +42,7 @@ router.get("/gen", (req, res) => {
         if (err) {
             console.log('An error has occurred in kill back-end')
         }
-        let num = !req.query.numberOf ? 1 : req.query.numberOf
+        let num = !req.query.numberOf ? 1 : parseInt(req.query.numberOf)
         await dbStats[0].upGens(num)
     })
 })
@@ -51,7 +51,7 @@ router.get("/totem", (req, res) => {
         if (err) {
             console.log('An error has occurred in kill back-end')
         }
-        let num = !req.query.numberOf ? 1 : req.query.numberOf
+        let num = !req.query.numberOf ? 1 : parseInt(req.query.numberOf)
         await dbStats[0].upTotems(num)
     })
 })
@@ -60,7 +60,7 @@ router.get("/save", (req, res) => {
         if (err) {
             console.log('An error has occurred in kill back-end')
         }
-        let num = !req.query.numberOf ? 1 : req.query.numberOf
+        let num = !req.query.numberOf ? 1 : parseInt(req.query.numberOf)
         await dbStats[0].upSaves(num)
     })
 })
@@ -77,7 +77,7 @@ router.get("/kill", (req, res) => {
         if (err) {
             console.log('An error has occurred in kill back-end')
         }
-        let num = !req.query.numberOf ? 1 : req.query.numberOf
+        let num = !req.query.numberOf ? 1 : parseInt(req.query.numberOf)
         await dbStats[0].upKills(num)
     })
 })
