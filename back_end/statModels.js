@@ -6,6 +6,10 @@ const statSchema = new Schema({
         type: Boolean,
         default: false
     },
+    ref: {
+        type: String,
+        required: false,
+    },
     hours: {
         type: Number,
         required: true,
@@ -113,6 +117,10 @@ statSchema.methods.upKills = async function (num) {
 statSchema.methods.initi = async function (num) {
     let numR = !num ? 1 : num
     this.initiated = true
+    return this.save()
+}
+statSchema.methods.updateHours = async function (num) {
+    this.hours = num
     return this.save()
 }
 

@@ -1,8 +1,10 @@
 const tmi = require('tmi.js')
 const oAuth = process.env.TTV_OAUTH || require('./secrets').twitch_Oauth
 const url = process.env.DBDSTATSURL || 'http://localhost:8000/'
+const steam_key = process.env.STEAMKEY || require('./secrets').steam_key
 const http = require('http')
 const fetch = require('fetch')
+const { json } = require('express/lib/response')
 
 
 const regexCmd = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/)
@@ -29,6 +31,11 @@ const addresses = {
     monthReset: `${url}monthReset`,
     init: `${url}initi`,
     create: `${url}create`,
+    hours: `${url}hours`,
+}
+const externalAddresses = {    
+    updateStats: 'http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/',
+    updateHours: 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
 }
 
 client.connect()
@@ -65,5 +72,32 @@ client.on('message', (channel, tags, message, self) => {
         })), res => {
             console.log(res)
         })
+    }
+    if (command in externalAddresses) {
+        console.log('command recognized')
+        const address = externalAddresses[`${command}`]
+        const specificCommand = command.slice(6)
+        console.log('specific command: ' + specificCommand)
+        console.log('Sending the following fetch request: ')
+        const url = address + '?' + new URLSearchParams({
+            key: steam_key,
+            format: 'json',
+            steamid: '76561197965889025'
+        })
+        console.log(url)
+        if (specificCommand === 'Hours') {
+            fetch.fetchUrl(url, function (error, meta, body) {
+                const data = JSON.parse(body.toString())
+                const specHours = data['response']['games'].filter((obj) => obj.appid === 381210)[0]
+                const totalHours = Math.round((specHours.playtime_forever * 100) / 60) / 100
+                console.log(totalHours)
+                fetch.fetchUrl(addresses['hours'] + '?' + new URLSearchParams({ hours: totalHours }), function (error, meta, body) {
+                    console.log(body)
+                })
+            })
+        }
+        else if (specificCommand === 'Stats') {
+            
+        }
     }
 })
