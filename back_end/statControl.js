@@ -2,11 +2,11 @@ const express = require('express')
 const mongoose = require('mongoose')
 const fetch = require('fetch')
 const router = express.Router()
-const steam_key = process.env.STEAMKEY || require('../secrets').steam_key
 const Stats = require('./statModels').Stats
+const steam_key = process.env.STEAMKEY || require('../secrets').steam_key
 const STEAMSTATS = 'http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/'
 const STEAMHOURS = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
-const indexNames = [ 'DBD_UnhookOrHeal', 'DBD_DLC3_Camper_Stat1' , 'DBD_GeneratorPct_float', 'DBD_Escape', 'DBD_SacrificedCampers', 'DBD_KilledCampers']
+const indexNames = ['DBD_UnhookOrHeal', 'DBD_DLC3_Camper_Stat1', 'DBD_GeneratorPct_float', 'DBD_Escape', 'DBD_SacrificedCampers', 'DBD_KilledCampers']
 
 router.get("/create", async function (req, res) {
     // console.log("creating stat instance")
@@ -97,27 +97,53 @@ router.get("/hours", (req, res) => {
         }
         let num = req.query.hours
         await dbStats[0].updateHours(num)
-    } )
+    })
 })
 router.get("/createX", async function (req, res) {
     const newStats = await Stats.create()
-    newStats.ref = 'day'
+    newStats.ref = 'ref'
     await newStats.save()
     console.log("created")
 })
+router.get("/reset", (req, res) => {
+    Stats.reset()
+    res.status(200).send('reset terminated normally')
+})
+router.get("/update", (req, res) => {
+    Stats.updateStats()
+    res.status(200).set('Content-Type', 'text/html').send('updated stats')
+    
+})
 router.get("/setMonth", (req, res) => {
-    Stats.find({ initiated: false, ref: 'month' }, async function (err, dbStats) {
+    Stats.find({ initiated: false, ref: 'ref' }, async function (err, dbStats) {
         if (err) {
             console.log('An error has occurred in setMonth back-end')
         }
         const url = STEAMSTATS + '?' + new URLSearchParams({
             key: steam_key,
             format: 'json',
-            steamid: '76561197965889025'
+            steamid: '76561197965889025',
+            appid: 381210
         })
-        fetch.fetchUrl(url, function (error, meta, body) {
+        fetch.fetchUrl(url, async function (error, meta, body) {
+            // const data = JSON.parse(body.toString()).playerstats.stats
             const data = JSON.parse(body.toString()).playerstats.stats
-            console.log(data)
+            const pruned = data.filter(obj => indexNames.includes(obj.name))
+            // console.log(pruned)
+            const kills = pruned.filter(obj => obj.name === 'DBD_SacrificedCampers')[0].value
+            const moris = pruned.filter(obj => obj.name === 'DBD_KilledCampers')[0].value
+            const saves = pruned.filter(obj => obj.name === 'DBD_UnhookOrHeal')[0].value
+            const gens = pruned.filter(obj => obj.name === 'DBD_GeneratorPct_float')[0].value
+            const escapes = pruned.filter(obj => obj.name === 'DBD_Escape')[0].value
+            const totems = pruned.filter(obj => obj.name === 'DBD_DLC3_Camper_Stat1')[0].value
+            // console.log(dbStats)
+            dbStats[0].killsMonth = kills + moris
+            dbStats[0].savesMonth = saves
+            dbStats[0].gensMonth = Math.round(gens)
+            dbStats[0].escapesMonth = escapes
+            dbStats[0].totemsMonth = totems
+            await dbStats[0].save()
+            res.status(200).send('setMonth terminated normally')
         })
     })
 })

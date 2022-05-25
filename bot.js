@@ -32,8 +32,11 @@ const addresses = {
     init: `${url}initi`,
     create: `${url}create`,
     hours: `${url}hours`,
+    setMonth: `${url}setMonth`,
+    reset: `${url}reset`,
+    updateStats: `${url}update`
 }
-const externalAddresses = {    
+const externalAddresses = {
     updateStats: 'http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/',
     updateHours: 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
 }
@@ -47,6 +50,11 @@ client.connect()
                 console.log('test get sent')
             })
         }
+        console.log('Sending for update')
+        const new_url = addresses['updateStats']
+        fetch.fetchUrl(new_url, function (error, meta, body) {
+            console.log(body.toString())
+        })
     }).catch((err) => {
         console.log('Error connecting')
         console.log(err)
@@ -96,8 +104,16 @@ client.on('message', (channel, tags, message, self) => {
                 })
             })
         }
-        else if (specificCommand === 'Stats') {
-            
-        }
     }
 })
+setInterval(() => {
+    console.log('Sending for update')
+    const new_url = addresses['updateStats']
+    fetch.fetchUrl(new_url, function (error, meta, body) {
+        if (error) {
+            console.log(error)
+        } else {
+            console.log(body.toString())            
+        }
+    })
+}, 120000)
